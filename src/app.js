@@ -13,19 +13,26 @@ app.get("/check/:zip", validateZip, (req, res, next) => {
     }
 })
 
+app.get("/zoos/all", (req, res, next) => {
+    const admin = req.query.admin;
+    if (admin === 'true') {
+        res.send(`All zoos: ${getZoos().join('; ')}`)
+    } else {
+        res.send("You do not have access to that route.")
+    }
+    next();
+})
+
 app.get("/zoos/:zip", validateZip, (req, res, next) => {
     const { zip } = req.params;
     const zoos = getZoos(zip);
-    if(zoos) {
-        next();
+    if(zoos.length) {
+        res.send(`${zip} zoos: ${zoos.join('; ')}`);
     } else {
         res.send(`${zip} has no zoos.`)
     }
 })
 
-app.get("/zoos/all", (req, res, next) => {
-    next();
-})
 
 app.use((req, res, next) => {
     res.send(`That route could not be found!`);

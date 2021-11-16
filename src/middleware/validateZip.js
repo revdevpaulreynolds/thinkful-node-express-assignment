@@ -1,3 +1,4 @@
+// My solution:
 function validateZip(req, res, next) {
     const {zip} = req.params;
     let potentialZip = zip.replace(/\D/g, '');
@@ -7,5 +8,17 @@ function validateZip(req, res, next) {
         next();
     }
 }
+
+// Rich's solution: 
+// function validateZip(req, res, next) {
+//     const { zip } = req.params
+//     if (zip.length !== 5 || isNaN(Number(zip))) {
+//         next(`Zip (${zip}) is invalid!`)
+//     } else {
+//         next();
+//     }
+//   }
+  
+// module.exports = validateZip;
 
 module.exports = validateZip;
