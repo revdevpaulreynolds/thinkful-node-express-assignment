@@ -1,8 +1,8 @@
 function validateZip(req, res, next) {
-    let potentialZip = parseInt(req.params.zip);
-    potentialZip = potentialZip.toString();
-    if (potentialZip.length !== 5) {
-        next(`Zip (${req.params.zip}) is invalid!`)
+    const {zip} = req.params;
+    let potentialZip = zip.replace(/\D/g, '');
+    if (potentialZip.length !== 5 || potentialZip.length !== zip.length) {
+        return next(`Zip (${zip}) is invalid!`)
     } else {
         next();
     }
